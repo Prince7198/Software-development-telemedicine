@@ -1,0 +1,50 @@
+.dbody{
+    height: 500px;
+    background: url("/src/assets/banner.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+.dbtnSubmit{
+    margin: 20px auto;
+    width: 250px;
+}
+.dtitle{
+    color: white;
+    text-align: center;
+    padding-top: 10px;
+}
+.dform{
+    padding-top: 30px;
+    margin-left:50px;
+}
+.dform label{
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+.dform input{
+    border-radius: 5px;
+    padding-inline-start: 10px;
+    border: none;
+    font-size: 20px;
+    padding: 10px;
+}
+.dbtnSubmit{
+    background-color: rgb(49, 121, 181);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+}
+.dbtnSubmit:hover{
+    background-color: rgb(39, 167, 222);
+}
+.dsignup{
+    display: flex;
+    font-size: 20px;
+    
+    text-align: center;
+    margin-left: 50px;
+}

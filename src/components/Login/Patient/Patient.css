@@ -1,0 +1,49 @@
+.pbody{
+    height: 500px;
+    background: url("/src/assets/patientBanner.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+.ptitle{
+    color: rgb(49, 121, 181);
+    text-align: center;
+
+}
+.pform{
+    padding: 50px;
+}
+.pform label{
+    color: rgb(49, 121, 181);
+    font-weight: 600;
+    font-size: 20px;
+}
+.pform input{
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: 1px solid rgb(49, 121, 181);
+}
+.pbtnSubmit{
+    
+    width: 250px;
+    color: white;
+    background-color: rgb(49, 121, 181);
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+}
+.pbtnSubmit:hover{
+    background-color: rgb(39, 167, 222);
+}
+.psignup{
+    display: flex;
+    font-size: 20px;
+    
+    text-align: center;
+    margin-left: 50px;
+}
+.psignup p{
+    color: rgb(49, 121, 181);
+}

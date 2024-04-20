@@ -1,0 +1,66 @@
+.gridView {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr ; /* Two equal-width columns */
+    gap: 3px; /* Optional: gap between grid items */
+}
+.prbody{
+    
+    height: 700px;
+    background: url("/src/assets/patientBanner.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+
+}
+.prtitle{
+    padding-top: 50px;
+    text-align: center;
+    color: rgb(49, 121, 181);
+}
+.prform{
+    padding: 50px;
+}
+.prform label{
+    font-size: 20px;
+    font-weight: 600;
+    color: rgb(49, 121, 181);
+}
+.prform input{
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgb(49, 121, 181);
+}
+
+.prbtnContainer{
+    width: 60%;
+    display: flex; 
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    
+}
+.prbtnSubmit{
+    text-align: center;
+    width: 250px;
+    background-color:rgb(49, 121, 181) ;
+    margin-left: -100px;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    border: none
+    
+}
+.prbtnSubmit:hover{
+    background-color: rgb(39, 167, 222);
+}
+.prsignup{
+    display: flex;
+    font-size: 20px;
+    
+    text-align: center;
+    margin-left: 50px;
+}
+.prsignup p{
+    color: rgb(49, 121, 181);
+}
