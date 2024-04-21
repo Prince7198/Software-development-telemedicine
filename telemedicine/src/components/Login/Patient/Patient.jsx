@@ -1,17 +1,60 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import "./Patient.css";
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Patient = () => {
+  const [patientUsername, setPatientUserName] = useState('');
+  const [password, setPassword] =useState('');
+
+  const navigate=useNavigate();
+  const handleSubmit = (e)=>{
+    e.preventDefault();
+
+    
+    //validate the data
+    if(patientUsername.length < 3 ){
+      alert("Invalid Details!!");
+      return;
+    }
+    //let get the data from the database
+    axios.get(`http://localhost:8081/get-patient?patientUsername=${patientUsername}`, {
+    })
+    .then(response => {
+      const patient=response.data;
+      if(!patient){//Empty response
+        alert("Patient not found!!");
+        return;
+      }
+      
+       // Check if the password matches
+      if (patient.password !== password.toString()) {
+        alert("Incorrect password. Try again! ");
+        return;
+      }
+      alert("Login Successful");
+      navigate("/patient-dashboard");
+
+    })
+    .catch(error =>{
+      if(error.response && error.response.status === 404){
+      alert("Patient not Found !!");
+      }
+      if(error.response && error.response.status === 400){
+        alert("Something went wrong. Please try again later!");
+        }
+
+    });
+  }
   return (
     <div className='pbody'>
        <h1 className='ptitle'>Patient Login</h1>
-       <form className="pform" >
+       <form className="pform" onSubmit={handleSubmit}>
         <label htmlFor="input-button">Username</label><br /> <br />
-        <input type="text" placeholder='Enter your Username' id='patientusername' required /><br /><br />
+        <input type="text" placeholder='Enter your Username' id='patientusername' value={patientUsername} onChange={(e) => setPatientUserName(e.target.value)} required /><br /><br />
         <label htmlFor="input-button">Password</label><br /> <br />
-        <input type="password" placeholder='Enter your Password'  required /> <br /><br /><br />
+        <input type="password" placeholder='Enter your Password'  required value={password} onChange={(e)=>setPassword(e.target.value)} /> <br /><br /><br />
         <button className='pbtnSubmit' type="submit" >Login</button>
        </form> 
        <div className="psignup">
