@@ -3,18 +3,18 @@ import { Link,useNavigate} from 'react-router-dom';
 import "./Register.css";
 import axios from 'axios';
 import { RadioGroup } from '@mui/material';
-
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'; // Import default styling css
 
 const Register = () => {
-
   //useNavigate
   const navigate =useNavigate();
-
   //registration
   const [username, setUsername] = useState('');
   const [fullname, setFullname] = useState('');
   const [phone, setPhone] = useState('');
   const [age, setAge] = useState('');
+  const [dob, setDob] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [cpassword, setCpassword] = useState('');
@@ -28,15 +28,19 @@ const Register = () => {
   //onsubmit
   const handleClick=(e) =>{
     //prevent default
-    e.preventDefault();
+    e.preventDefault(); 
 
-    
-    
-    if(!phone ||  !/^\d{11}$/.test(phone)){
+    // compute age 
+    const current_date= new Date();
+    const yob=new Date(dob)
+    const a_ge=current_date.getFullYear()-yob.getFullYear();
+    setAge(a_ge);//the age
+
+    if(!phone ||  phone.length <8 || phone.length >15){
       alert("Invalid Phone Number");
       return;
     }
-    if(!age || age>100 || age<0){
+    if(!age || age>150 || age<0){
       alert("Invalid Age");
       return;
     }
@@ -80,15 +84,26 @@ const Register = () => {
           </div>
           <div>
           <label htmlFor="input-button">Phone Number</label><br /> <br />
-          <input type="number" placeholder='Enter your Phone Number' value={phone} onChange={(e)=>{setPhone(e.target.value)}}  required /> <br /><br />
+          <div className="input">
+            <PhoneInput
+              inputStyle={{ height: '40px', border:"1px solid rgb(49, 121, 181)", width:"280px" ,paddingTop:"15px", paddingBottom:"15px", borderRadius:"10px", fontSize: '20px', }} // Custom style for the input
+              country={'uk'} // Default country value
+              placeholder= "+441234564345"// Value to be  in the 
+              onChange={(formattedValue, unformattedValue) => {
+                // Update the state with the unformatted phone number
+                setPhone(formattedValue);
+              }}
+              // Callback function to handle input change
+            />
+          </div>
           </div>
           <div>
           <label htmlFor="input-button">Email</label><br /> <br />
-          <input type="text" placeholder='Enter your Email' value={email} onChange={(e)=>{setEmail(e.target.value)}} required /> <br /><br />
+          <input type="email" placeholder='Enter your Email' value={email} onChange={(e)=>{setEmail(e.target.value)}} required /> <br /><br />
           </div>
           <div>
-          <label htmlFor="input-button">Age</label><br /> <br />
-          <input type="number" placeholder='Enter your Age' value={age} onChange={(e)=>{setAge(e.target.value)}} required /> <br /><br />
+          <label htmlFor="input-button">Date of Birth</label><br /> <br />
+          <input type="date" style={{width:"260px"}} placeholder='Enter your Age' value={dob} onChange={(e)=>{setDob(e.target.value)}} required /> <br /><br />
           </div>
           <div>
           <label htmlFor="input-button">Gender</label><br /> <br />

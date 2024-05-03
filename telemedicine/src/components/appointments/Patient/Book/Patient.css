@@ -1,49 +1,72 @@
-.gridView {
+
+.pabody{
+    height: 700px ;
+    background: url("/src/assets/patient_dashboard_banner.png") no-repeat;
+    background-position: right;
+}
+.paheader {
+    color: rgb(49, 121, 181);    
+    text-align: center;
+}
+.pagridView {
     width: 60%;
     display: grid;
     grid-template-columns: 1fr 1fr ; /* Two equal-width columns */
     gap: 3px; /* Optional: gap between grid items */
 }
-.prbody{
+.pabody{
     
-    height: 750px;
+    height: 700px;
     background: url("/src/assets/patientBanner.png") no-repeat;
     background-size: cover;
     background-position: center;
 
 }
-.prtitle{
+.patitle{
     padding-top: 50px;
     text-align: center;
     color: rgb(49, 121, 181);
 }
-.prform{
+.paform{
     padding: 50px;
 }
-.prform label{
+.paform label{
     font-size: 20px;
     font-weight: 600;
     color: rgb(49, 121, 181);
 }
-.prform input{
+.paform input, select{
     font-size: 20px;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid rgb(49, 121, 181);
 }
-
-.prbtnContainer{
+.paform select{
+    font-size: 20px;
+    padding: 10px;
+    width: 280px;
+    border-radius: 10px;
+    border: 1px solid rgb(49, 121, 181);
+}
+.paform textarea {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid rgb(49, 121, 181);
+}
+.pabtnContainer{
     width: 60%;
     display: flex; 
     justify-content: center; /* Centers items horizontally */
     align-items: center; /* Centers items vertically */
     
 }
-.prbtnSubmit{
+.pabtnSubmit{
     text-align: center;
     width: 250px;
     background-color:rgb(49, 121, 181) ;
-    margin-left: -100px;
+    
     font-size: 20px;
     padding: 10px;
     border-radius: 10px;
@@ -51,18 +74,32 @@
     border: none
     
 }
-.prbtnSubmit:hover{
+.pabtnSubmit:hover{
     background-color: rgb(39, 167, 222);
 }
-.prsignup{
+.pasignup{
     display: flex;
     font-size: 20px;
+    
     text-align: center;
     margin-left: 50px;
 }
-.prsignup p{
+.pasignup p{
     color: rgb(49, 121, 181);
 }
-.radio{
+.paradio{
     padding-left:50px   ;
+}
+.pappointments{
+    float: right;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    justify-items: auto;
+    font-weight: 600;
+    padding: 5px;
+
+}
+.pappointments .link{
+    color: rgb(49, 121, 181);
 }

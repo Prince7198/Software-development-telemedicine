@@ -32,7 +32,7 @@ function Register() {
       doctor_password: staffPassword,
     })
     .then(res => {
-      console.log(res.data); // Assuming the server returns data
+      
       alert("Doctor has been registered Successfully. Proceed to Login");
       setStaffNumber('');
       setStaffNames('');

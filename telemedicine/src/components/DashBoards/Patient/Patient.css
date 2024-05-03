@@ -1,0 +1,54 @@
+
+.pdbody{
+    height: 700px ;
+    background: url("/src/assets/patient_dashboard_banner.png") no-repeat;
+    background-position: top;
+}
+.pdheader {
+    color: rgb(49, 121, 181);    
+    text-align: center;
+}
+.pdcomponents {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: 400px;
+    
+    justify-items: center;
+    
+
+}
+.pdcomponents .pdmedicalhistory {
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    width: 400px;
+    height: 200px;
+}
+
+.pdcontent .pdcomplink{
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin: auto;
+    float:right;
+    font-size: 25px ;
+    color: rgb(49, 121, 181);
+    width: 100% ;
+}
+
+.pdcontent p {
+    font-size: 20px;
+}
+
+@media screen and (max-width:600px) {
+    .pdcontent .pdcomplink{
+        font-size: 20px;
+    }
+    .pdcontent p{
+        font-size: 15px;
+    }
+    
+}

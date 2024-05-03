@@ -98,7 +98,47 @@ app.get("/get-patient", (req, res) =>{
     return res.status(200).json(data[0]); // A record is returned.
   });
 });
+//all doctore
+app.get("/all-doctors", (req, res) =>{
+  const dquery=" SELECT * FROM doctors";
+  db.query(dquery, (error,data)=>{
+    if(error){
+      console.log("Error: " + error);
+      return;
+    }
+    if(data.length === 0){
+      return res.status(404).json({error: "No doctors found!"});
+    }
+    console.log(data);
+    return res.status(200).json(data);
 
+  
+  });
+});
+
+//book appointment
+app.post("/patient/book-appointment", (req,res)=>{
+  const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName, appointmentDate, appointmentTime, appointmentReason} =req.body;
+  aquery="INSERT INTO appointments(patientUsername,patientName,patientEmail, PatientAge, patientGender,doctorName,appointmentDate,appointmentTime, appointmentReason) VALUES(?,?,?,?,?,?,?,?,?)";
+  db.query(aquery,[patientUsername,patientName,patientEmail,patientAge,patientGender,doctorName,appointmentDate,appointmentTime,appointmentReason], (err, data)=>{
+    if(err){
+      return res.status(500).json({error:"Error occured creating appointment" + err});
+    }
+
+    return res.status(200).json(data);
+  })
+})
+
+//all appointments
+app.get("/all-appointments", (req, res)=>{
+  apquery="SELECT * FROM appointments";
+  db.query(apquery, (error,data)=>{
+    if(error){
+      return res.status(500).json({error:error});
+    }
+    return res.status(200).json(data);
+  })
+})
 app.listen(8081, () => {
   console.log("Listening...");
 });
