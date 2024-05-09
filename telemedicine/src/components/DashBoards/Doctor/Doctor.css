@@ -1,0 +1,77 @@
+.ddbody{
+    height: 700px;
+    margin: auto;
+    background: url("/src/assets/banner.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.ddtitle{
+    text-align: center;
+    color: white;
+    padding: 10px;
+}
+.ddcomponents {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    margin-top: 300px;
+    justify-items: center;
+    
+
+}
+.ddcomponents .ddmedicalhistory {
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    background: white;
+    width: 400px;
+    height: 200px;
+}
+.dddosage{
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 10px;
+    padding: 10px;
+    
+    margin: auto;   
+    width: 400px;
+    text-align: center;
+    background: white;
+    margin-left: 76% ;
+    
+    height: 50px;
+}
+.content .ddcomplink{
+    color: rgb(49, 121, 181);
+    font-weight: 600;
+    margin: auto;
+    font-size: 25px;
+    justify-content: center;
+    text-align: center;
+}
+
+.ddcontent .ddcomplink{
+    text-align: center;
+    justify-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin: auto;
+    float:right;
+    font-size: 25px ;
+    color: rgb(49, 121, 181);
+    width: 100% ;
+}
+
+.ddcontent p {
+    font-size: 20px;
+}
+
+@media screen and (max-width:600px) {
+    .ddcontent .ddcomplink{
+        font-size: 20px;
+    }
+    .ddcontent p{
+        font-size: 15px;
+    }
+    
+}
