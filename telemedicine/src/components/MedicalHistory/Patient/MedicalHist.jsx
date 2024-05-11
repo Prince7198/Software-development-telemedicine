@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './MyAppointments.css';
-import { DataGrid } from '@mui/x-data-grid';
+import React,  {useState,  useEffect} from 'react';
 import axios from 'axios';
+import "./MedicalHist.css";
 import { Link, useNavigate } from 'react-router-dom';
-import { Style } from '@mui/icons-material';
+import { DataGrid } from '@mui/x-data-grid';
 
-const MyAppointments = () => {
+const MedicalHist = () => {
     const [username, setUsername] = useState("");
     const [appointments, setAppointments] = useState([]);
     const navigate = useNavigate();
@@ -19,13 +18,14 @@ const MyAppointments = () => {
             navigate("/home");
         }
 
-        // Get all appointment data
-        axios.get(`http://localhost:8081/all-appointments`)
+        // Get all medical data of the patient
+        axios.get(`http://localhost:8081/patient-history?patientUsername=${username}`)
             .then(response => {
-                // Map over the appointment data and add the id property
-                const appointmentsWithId = response.data.map((appointment,index) => ({
+                console.log(response.data);
+                // Map over the medical history data and add the id property
+                const appointmentsWithId = response.data.map((appointment, index) => ({
                     ...appointment,
-                    id: index + 1 
+                    id: index+1 // using unique identifier 'appointment_id' from the appointment data.
                 }));
                 setAppointments(appointmentsWithId);
             })
@@ -37,12 +37,10 @@ const MyAppointments = () => {
 
     const columns = [
         { field: 'id', headerName: 'S/No', width: 70 },
+        { field: 'dat', headerName: 'Date', width: 200 },
+        { field: 'diagnosis', headerName: 'Illness/Diagnosis', width: 200 },
         { field: 'doctorName', headerName: 'Doctor Name', width: 200 },
-        { field: 'patientAge', headerName: 'Age', width: 100 },
-        { field: 'appointmentDate', headerName: 'Date', width: 150 },
-        { field: 'appointmentTime', headerName: 'Time', width: 150 },
-        { field: 'appointmentReason', headerName: 'Reason', width: 200 },
-        {field: 'status', headerName: 'Status', width:150, }
+        { field: 'remarks', headerName: 'Doctor Remarks', width: 250 }
         // {
         //     field: 'actions',
         //     headerName: 'Action',
@@ -66,30 +64,20 @@ const MyAppointments = () => {
     //     console.log("Rejected appointment with ID:", appointmentId);
     // };
 
-    return (
-        <div className='myabody'>
-            <h1 className='myaheader'>My Appointments</h1>
-           <div className="datagrid">
-           <DataGrid className='dgrid'
+  return (
+    <div className='mhbody'>
+        <h1 className="mhhead">Medical History</h1>
+        <div className="mhdatagrid">
+           <DataGrid className='mhdgrid'
                 rows={appointments}
                 columns={columns}
-                initialState={{
-                    pagination: {
-                      paginationModel: {
-                        pageSize: 5,
-                      },
-                    },
-                  }}
-                  pageSizeOptions={[5]}
-                  checkboxSelection
-                  disableRowSelectionOnClick
+                pageSize={5}
             />
             </div> <br />
-            <div className="newAppointment">
-                <p>Book a New Appointment?</p> &nbsp; <Link className='toBook' to="/book-appointment">Click Here</Link>
-            </div>
-        </div>
-    )
+            
+
+    </div>
+  )
 }
 
-export default MyAppointments;
+export default MedicalHist

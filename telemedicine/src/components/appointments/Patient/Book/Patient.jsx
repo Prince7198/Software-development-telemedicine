@@ -16,6 +16,7 @@ const Patient = () => {
     const [dat, setDat] = useState('');
     const [doctors, setDoctors] = useState([]);
     const [gender, setGender] = useState('');
+    const [doctorName, setDoctorName] =useState('');
 
     useEffect(() => {
         const loggedPatient = localStorage.getItem("patient");
@@ -51,9 +52,11 @@ const Patient = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-
+        
+        
+        
         // imput validations
-        if(doctor.length <3){
+        if(doctor.length < 3){
           alert("please select a Doctor");
           return;
         }
@@ -63,6 +66,15 @@ const Patient = () => {
           return;
 
         }
+         // get doctor name 
+        //let get the data from the database
+        axios.get(`http://localhost:8081/get-doctor?staffNumber=${doctor}`, {
+        })
+        .then(response => {
+            const dctor=response.data;
+            const name_=dctor.doctor_name;
+    
+       
         //insert the record
         axios.post(`http://localhost:8081/patient/book-appointment?patientUsername=${username}`, {
           patientUsername:username,
@@ -70,7 +82,8 @@ const Patient = () => {
           patientEmail: email,
           patientAge: age,
           patientGender: gender,
-          doctorName: doctor,
+          doctorName: name_,
+          staffNumber:doctor,
           appointmentDate: dat,
           appointmentTime:tim,
           appointmentReason: reason,
@@ -86,6 +99,7 @@ const Patient = () => {
           setDoctor("");
 
         });
+    });
     }
 
     return (
@@ -111,7 +125,7 @@ const Patient = () => {
                         <select type='select' placeholder="Select a Doctor" value={doctor} onChange={(e)=> setDoctor(e.target.value)}>
                            <option value=""></option>
                             {doctors.map(doctor => (
-                                <option key={doctor.staffNumber} value={doctor.doctor_name}>{doctor.doctor_name}</option>
+                                <option key={doctor.staffNumber} value={doctor.staffNumber}>{doctor.doctor_name}</option>
                             ))}
                         </select> <br /><br />
                     </div>

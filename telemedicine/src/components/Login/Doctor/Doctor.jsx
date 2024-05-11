@@ -32,6 +32,8 @@ const Doctor = () => {
         alert("Incorrect password. Try again! ");
         return;
       }
+       // store patient to keep track of logged in patient 
+      localStorage.setItem('doctor', staffNumber);
       alert("Login Successful");
       navigate("/doctor-dashboard");
 

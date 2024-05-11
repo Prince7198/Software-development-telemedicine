@@ -109,7 +109,6 @@ app.get("/all-doctors", (req, res) =>{
     if(data.length === 0){
       return res.status(404).json({error: "No doctors found!"});
     }
-    console.log(data);
     return res.status(200).json(data);
 
   
@@ -118,13 +117,15 @@ app.get("/all-doctors", (req, res) =>{
 
 //book appointment
 app.post("/patient/book-appointment", (req,res)=>{
-  const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName, appointmentDate, appointmentTime, appointmentReason} =req.body;
-  aquery="INSERT INTO appointments(patientUsername,patientName,patientEmail, PatientAge, patientGender,doctorName,appointmentDate,appointmentTime, appointmentReason) VALUES(?,?,?,?,?,?,?,?,?)";
-  db.query(aquery,[patientUsername,patientName,patientEmail,patientAge,patientGender,doctorName,appointmentDate,appointmentTime,appointmentReason], (err, data)=>{
+  const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName,staffNumber, appointmentDate, appointmentTime, appointmentReason} =req.body;
+  const status = "pending";
+  aquery="INSERT INTO appointments(patientUsername,patientName,patientEmail, PatientAge, patientGender,doctorName,staffNumber, appointmentDate,appointmentTime, appointmentReason,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(aquery,[patientUsername,patientName,patientEmail,patientAge,patientGender,doctorName,staffNumber, appointmentDate,appointmentTime,appointmentReason,status], (err, data)=>{
     if(err){
       return res.status(500).json({error:"Error occured creating appointment" + err});
     }
 
+    // console.log(data);
     return res.status(200).json(data);
   })
 })
@@ -139,6 +140,49 @@ app.get("/all-appointments", (req, res)=>{
     return res.status(200).json(data);
   })
 })
+//patient history
+app.get("/patient-history", (req,res)=>{
+  const patientUsername=req.query.patientUsername;
+
+  phquery="SELECT * FROM patient_history WHERE patientUsername=?";
+  db.query(phquery,[patientUsername], (error, data)=>{
+    if(error){
+      return res.status(404).json({error:"Record not found!!"});
+
+    }
+    //data is found
+    return res.status(200).json(data);
+
+  })
+});
+
+// Doctor's Appointments
+
+app.get("/doctor-appointments", (req, res)=>{
+  const staffNumber= req.query.staffNumber;
+  apquery="SELECT * FROM appointments where staffNumber=?";
+  db.query(apquery,[staffNumber], (error,data)=>{
+    if(error){
+      return res.status(500).json({error:error});
+    }
+    return res.status(200).json(data);
+  })
+})
+
+// Treat the patient
+
+app.get("/sick-patients", (req, res)=>{
+  const staffNumber= req.query.staffNumber;
+  apquery="SELECT * FROM appointments where staffNumber=?";
+  db.query(apquery,[staffNumber], (error,data)=>{
+    if(error){
+      return res.status(500).json({error:error});
+    }
+    return res.status(200).json(data);
+  })
+})
+
+
 app.listen(8081, () => {
   console.log("Listening...");
 });

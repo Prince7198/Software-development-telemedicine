@@ -1,0 +1,16 @@
+.mhbody{
+    height: 700px;
+}
+.mhhead{
+    color: rgb(49, 121, 181);
+    text-align: center;
+    padding: 10px;
+}
+.mhdatagrid{
+    padding: 50px;
+    
+}
+.mhdatagrid .mhdgrid{
+    border:1px solid rgb(49,121,181);
+    border-radius: 5px;
+}

@@ -44,7 +44,7 @@ nav{
     display: none;
 }
 #mobile i{
-    color: white;
+    color: rgb(92, 201, 228);
 }
 @media screen and (max-width:750px) {
     #navbar {
@@ -58,6 +58,7 @@ nav{
         width: 200px;
         height: 100vh;
         background: rgb(8, 63, 130);
+                       
         box-shadow: 0 40px 60px rgb(39, 167, 222);
         padding: 40px 0 0 10px;
         border-bottom-left-radius: 5px;

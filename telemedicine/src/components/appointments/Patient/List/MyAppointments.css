@@ -1,3 +1,42 @@
 .myaheader{
-    color: red;
+    color: rgb(49, 121, 181);
+    text-align: center;
+    padding: 10px;
+}
+.myabody{
+    height: 700px;
+
+}
+.datagrid{
+    padding: 50px;
+    margin: auto;
+    height: 400px;
+    
+}
+.datagrid .dgrid{
+    border: 1px solid rgb(49,121,181);
+    border-radius: 5px;
+    justify-content: center;
+    
+}
+.newAppointment{
+    font-size: 20px;
+    display: flex;
+    float: right;
+    padding-right: 50px;
+    margin-bottom: 10px;
+    
+
+}
+.newAppointment p {
+    color: rgb(49, 121, 181);
+    font-weight: 600;
+}
+.newAppointment .toBook{
+    color: rgb(175,175, 179);
+    text-decoration: underline;
+
+}
+.newAppointment .toBook:hover{
+    color: rgb(49, 121, 181);
 }

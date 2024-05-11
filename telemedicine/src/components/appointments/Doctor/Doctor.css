@@ -1,0 +1,22 @@
+.dabody{
+    height: 700px;
+    margin: auto;
+}
+
+.datitle{
+    text-align: center;
+    color: rgb(49, 121, 181);
+    padding: 10px;
+}
+.ddatagrid{
+    padding: 50px;
+    margin: auto;
+    height: 400px;
+    
+}
+.ddatagrid .dgrid{
+    border: 1px solid rgb(49,121,181);
+    border-radius: 5px;
+    justify-content: center;
+    
+}

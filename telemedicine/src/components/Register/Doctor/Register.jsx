@@ -4,6 +4,7 @@ import "./Register.css";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom'; // render
 
+
 function Register() {
   const [staffNumber, setStaffNumber] = useState('');
   const [staffNames, setStaffNames] = useState('');

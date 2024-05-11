@@ -11,6 +11,12 @@ import PatientDashboard from './Pages/PatientDashboard';
 import DoctorDashboard from './Pages/DoctorDashboard';
 import BookAppointment from './Pages/BookAppointment';
 import PatientAppointments from './Pages/PatientAppointments';
+import MedicalHistory from './Pages/MedicalHistory';
+import DosagePage from './Pages/DosagePage';
+import DoctorAppointment from './Pages/DoctorAppointment';
+import RatingPage from './Pages/RatingPage';
+
+
 
 
 export default function App() {
@@ -29,6 +35,11 @@ export default function App() {
       <Route path='/doctor-dashboard' element={<DoctorDashboard />} />
       <Route path='/book-appointment' element={<BookAppointment /> } />
       <Route path = '/patient-appointments' element={<PatientAppointments />} />
+      <Route path='/patient-history' element={< MedicalHistory /> } />
+      <Route path='/dosage' element={< DosagePage />}/>
+      <Route path='/doctor-appointment' element={< DoctorAppointment />}/>
+      <Route path='/doctor-rating' element={< RatingPage />}/>
+      
     </Routes>
     </BrowserRouter>
  
