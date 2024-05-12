@@ -20,3 +20,35 @@
     justify-content: center;
     
 }
+
+
+.button-container {
+    
+    
+   
+}
+
+.action-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.approve {
+    background-color: #4CAF50; 
+    color: white;
+}
+
+
+.reject {
+    background-color: #f44336;
+    color: white;
+}
+
+
+.action-button:hover {
+    opacity: 0.8;
+}

@@ -38,31 +38,13 @@ const MedicalHist = () => {
     const columns = [
         { field: 'id', headerName: 'S/No', width: 70 },
         { field: 'dat', headerName: 'Date', width: 200 },
-        { field: 'diagnosis', headerName: 'Illness/Diagnosis', width: 200 },
         { field: 'doctorName', headerName: 'Doctor Name', width: 200 },
-        { field: 'remarks', headerName: 'Doctor Remarks', width: 250 }
-        // {
-        //     field: 'actions',
-        //     headerName: 'Action',
-        //     width: 250,
-        //     renderCell: (params) => (
-        //         <div>
-        //             <button onClick={() => handleApprove(params.row.id)}>Approve</button> &nbsp; &nbsp;
-        //             <button onClick={() => handleReject(params.row.id)}>Reject</button>
-        //         </div>
-        //     )
-        // }
-    ];
+        { field: 'symptoms', headerName: 'Symptoms', width: 250 },
+        { field: 'diagnosis', headerName: 'Diagnosis', width: 200 },
+        { field: 'dose', headerName: 'Dosage', width: 250 },
+        { field: 'ussage', headerName: 'Usage per Day', width: 250 }
+    ]
 
-    // const handleApprove = (appointmentId) => {
-    //     // Handle approve action for the appointment
-    //     console.log("Approved appointment with ID:", appointmentId);
-    // };
-
-    // const handleReject = (appointmentId) => {
-    //     // Handle reject action for the appointment
-    //     console.log("Rejected appointment with ID:", appointmentId);
-    // };
 
   return (
     <div className='mhbody'>

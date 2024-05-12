@@ -115,6 +115,23 @@ app.get("/all-doctors", (req, res) =>{
   });
 });
 
+//all patients
+app.get("/all-patients", (req, res) =>{
+  const dquery=" SELECT * FROM patients";
+  db.query(dquery, (error,data)=>{
+    if(error){
+      console.log("Error: " + error);
+      return;
+    }
+    if(data.length === 0){
+      return res.status(404).json({error: "No patient found!"});
+    }
+    return res.status(200).json(data);
+
+  
+  });
+});
+
 //book appointment
 app.post("/patient/book-appointment", (req,res)=>{
   const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName,staffNumber, appointmentDate, appointmentTime, appointmentReason} =req.body;
@@ -144,7 +161,7 @@ app.get("/all-appointments", (req, res)=>{
 app.get("/patient-history", (req,res)=>{
   const patientUsername=req.query.patientUsername;
 
-  phquery="SELECT * FROM patient_history WHERE patientUsername=?";
+  phquery="SELECT * FROM treatment WHERE patientUsername=?";
   db.query(phquery,[patientUsername], (error, data)=>{
     if(error){
       return res.status(404).json({error:"Record not found!!"});
@@ -181,6 +198,40 @@ app.get("/sick-patients", (req, res)=>{
     return res.status(200).json(data);
   })
 })
+
+//approve
+app.post("/approve", (req, res) => {
+  const { appointment_id } = req.body;
+  const status = "approved";
+  const aquery = "UPDATE appointments SET status = ? WHERE appointment_id = ?";
+  
+  db.query(aquery, [status, appointment_id], (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Error Approving: " + err });
+    }
+
+    // console.log(data);
+    return res.status(200).json(data);
+  });
+});
+
+
+//reject
+app.post("/reject", (req, res) => {
+  const { appointment_id } = req.body;
+  const status = "rejected";
+  const aquery = "UPDATE appointments SET status = ? WHERE appointment_id = ?";
+  
+  db.query(aquery, [status, appointment_id], (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: "Error Approving: " + err });
+    }
+
+    // console.log(data);
+    return res.status(200).json(data);
+  });
+});
+
 
 
 app.listen(8081, () => {

@@ -1,5 +1,8 @@
 .dosbody{
-    height: 700px;
+    background: url("/src/assets/patientBanner.png") no-repeat;
+    background-position: right;
+
+    height: 850px;
     margin: auto;
 }
 .dostitle{
@@ -8,5 +11,45 @@
     text-align: center;
     padding: 10px;
     
+
+}
+.dosearch{
+    display:flex;
+    margin-left: 50px;    
+    justify-items: center;
+    padding: 20px;
+
+
+}
+.dosearch p {
+    font-size: 25px;
+    color: rgb(49, 121, 181);
+    font-weight: 600;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+.dosearch select {
+    width: 300px;
+    border: 1px solid rgb(49, 121, 181);
+}
+.dogridView {
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Two equal-width columns */
+    gap: 3px; /* Optional: gap between grid items */
+}
+.process{
+    font-size: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    font-weight: 600;
+    background-color: rgb(49, 121, 181);
+    border-radius: 10px;
+    border: 1px solid rgb(49, 121, 181);
+}
+.process:hover{
+    background-color: rgb(114, 182, 238);
 
 }

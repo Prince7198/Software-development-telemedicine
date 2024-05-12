@@ -26,7 +26,7 @@ const Doctor = () => {
                 // Map over the appointment data and add the id property
                 const appointmentsWithId = response.data.map((appointment, index) => ({
                     ...appointment,
-                    id: index+1 // using unique identifier 'appointment_id' from the appointment data.
+                    id: appointment.appointment_id // using unique identifier 'appointment_id' from the appointment data.
                 }));
                 setAppointments(appointmentsWithId);
             })
@@ -37,7 +37,7 @@ const Doctor = () => {
 
 
     const columns = [
-        { field: 'id', headerName: 'S/No', width: 70 },
+        
         { field: 'doctorName', headerName: 'Doctor Name', width: 200 },
         { field: 'patientAge', headerName: 'Age', width: 100 },
         { field: 'appointmentDate', headerName: 'Date', width: 150 },
@@ -49,23 +49,42 @@ const Doctor = () => {
             headerName: 'Action',
             width: 250,
             renderCell: (params) => (
-                <div>
-                    <button onClick={() => handleApprove(params.row.id)}>Approve</button> &nbsp; &nbsp;
-                    <button onClick={() => handleReject(params.row.id)}>Reject</button>
-                </div>
+              <div className="button-container">
+              <button className="action-button approve" onClick={() => handleApprove(params.row.id)}>Approve</button> &nbsp;&nbsp;
+              <button className="action-button reject" onClick={() => handleReject(params.row.id)}>Reject</button>
+          </div>
             )
         }
     ];
 
-    // const handleApprove = (appointmentId) => {
-    //     // Handle approve action for the appointment
-    //     console.log("Approved appointment with ID:", appointmentId);
-    // };
+    const handleApprove = (appointmentId) => {
+      // Modify the status 
 
-    // const handleReject = (appointmentId) => {
-    //     // Handle reject action for the appointment
-    //     console.log("Rejected appointment with ID:", appointmentId);
-    // };
+      axios.post(`http://localhost:8081/approve?appointment_id=${appointmentId}`,{
+        appointment_id:appointmentId,
+        
+      })
+      .then(response=>{
+        location.reload();
+        // Handle approve action for the appointment
+        console.log("Approved appointment with ID:", appointmentId);
+
+      })
+        
+    };
+
+    const handleReject = (appointmentId) => {
+      axios.post(`http://localhost:8081/reject?appointment_id=${appointmentId}`,{
+        appointment_id:appointmentId,
+        
+      })
+      .then(response=>{
+        location.reload();
+        // Handle approve action for the appointment
+        console.log("Rejected appointment with ID:", appointmentId);
+
+      })
+    };
 
 
   return (

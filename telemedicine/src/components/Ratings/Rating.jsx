@@ -1,8 +1,12 @@
-import React from 'react'
+import React from 'react';
+import "./Ratings.css";
 
 const Rating = () => {
   return (
-    <div>Ratings </div>
+    <div className='rbody'>
+      <h1 className="rtitle"> Rating and Reviews</h1>
+      <h3>on progress ...</h3>
+    </div>
   )
 }
 

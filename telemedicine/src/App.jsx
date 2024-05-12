@@ -15,6 +15,7 @@ import MedicalHistory from './Pages/MedicalHistory';
 import DosagePage from './Pages/DosagePage';
 import DoctorAppointment from './Pages/DoctorAppointment';
 import RatingPage from './Pages/RatingPage';
+import DHistory from './Pages/DHistory';
 
 
 
@@ -39,6 +40,7 @@ export default function App() {
       <Route path='/dosage' element={< DosagePage />}/>
       <Route path='/doctor-appointment' element={< DoctorAppointment />}/>
       <Route path='/doctor-rating' element={< RatingPage />}/>
+      <Route path='/dhistory' element={<DHistory />} />
       
     </Routes>
     </BrowserRouter>
