@@ -83,6 +83,20 @@ app.post("/post-patient", (req, res)=>{
   });
 });
 
+// Delete a patient.
+app.delete("/delete-patient", (req, res) => {
+  const username = req.query.patientUsername;
+  const delQuery = "DELETE FROM patients WHERE patientUsername = ?";
+  db.query(delQuery, [username], (delError, delResult) => {
+    if (delError) {
+      return res.status(501).json({ error: "Error occurred while deleting the patient", details: delError });
+    }
+    return res.status(200).json({ message: "Patient deleted successfully" });
+  });
+});
+
+
+
 //login a patient
 app.get("/get-patient", (req, res) =>{
   const patientUsername = req.query.patientUsername;

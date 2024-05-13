@@ -15,9 +15,10 @@ import MedicalHistory from './Pages/MedicalHistory';
 import DosagePage from './Pages/DosagePage';
 import DoctorAppointment from './Pages/DoctorAppointment';
 import RatingPage from './Pages/RatingPage';
+import GooglePatient from './Pages/GooglePatient';
 import DHistory from './Pages/DHistory';
 
-
+import { GoogleLogin } from '@react-oauth/google';
 
 
 export default function App() {
@@ -41,6 +42,7 @@ export default function App() {
       <Route path='/doctor-appointment' element={< DoctorAppointment />}/>
       <Route path='/doctor-rating' element={< RatingPage />}/>
       <Route path='/dhistory' element={<DHistory />} />
+      <Route path='/update-details' element={<GooglePatient />} />
       
     </Routes>
     </BrowserRouter>

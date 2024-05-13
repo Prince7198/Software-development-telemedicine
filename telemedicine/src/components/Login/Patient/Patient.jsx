@@ -8,6 +8,8 @@ const Patient = () => {
   const [password, setPassword] =useState('');
 
   const navigate=useNavigate();
+
+  
   const handleSubmit = (e)=>{
     e.preventDefault();
     //validate the data
@@ -43,6 +45,7 @@ const Patient = () => {
         }
 
     });
+
   }
   return (
     <div className='pbody'>
@@ -54,9 +57,11 @@ const Patient = () => {
         <input type="password" placeholder='Enter your Password'  required value={password} onChange={(e)=>setPassword(e.target.value)} /> <br /><br /><br />
         <button className='pbtnSubmit' type="submit" >Login</button>
        </form> 
+             
        <div className="psignup">
         <p >Don't have an account? </p> &nbsp; <Link to="/patient-register"><u> Sign up</u> </Link></div>     
-
+          
+      
     </div>
   )
 }

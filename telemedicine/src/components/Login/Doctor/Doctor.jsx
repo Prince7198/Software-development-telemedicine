@@ -3,6 +3,7 @@ import "./Login.css";
 import { Link, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
+
 const Doctor = () => {
   const [staffNumber, setStaffNumber] = useState('');
   const [password, setPassword] =useState('');
@@ -60,7 +61,9 @@ const Doctor = () => {
         <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='Enter your Password'  required /> <br /><br />
         <button className='dbtnSubmit' type="submit" >Login</button>
        </form> 
+     
        <div className="dsignup">
+    
         <p style={{color:"white"}}>Don't have an account? </p> &nbsp; <Link to="/doctor-register"><u> Sign up</u> </Link></div>     
 
     </div>

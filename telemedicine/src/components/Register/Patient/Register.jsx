@@ -1,10 +1,16 @@
-import React ,{useState} from 'react';
+import React ,{useState, useEffect} from 'react';
 import { Link,useNavigate} from 'react-router-dom';
 import "./Register.css";
 import axios from 'axios';
 import { RadioGroup } from '@mui/material';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'; // Import default styling css
+
+import { GoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
+import GoogleIcon from '@mui/icons-material/Google';
+
+import { jwtDecode } from "jwt-decode";
 
 const Register = () => {
   //useNavigate
@@ -19,7 +25,71 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [cpassword, setCpassword] = useState('');
   const [gender, setGender] = useState('');
+  const [googlePatient, setGooglePatient] =useState({});
   
+
+
+
+//google sign on
+
+const onSuccess = async (response) => {
+  try {
+    const res = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: {
+        Authorization: `Bearer ${response.access_token}`,
+      },
+    });
+    setGooglePatient(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const login = useGoogleLogin({
+  onSuccess,
+});
+
+useEffect(() => {
+  if (! (Object.keys(googlePatient).length ===0)) {
+    // Data insertion logic will be executed only when the Google sign-in button is clicked
+    const pUsername = "temporal";
+    const pEmail = googlePatient.email;
+    const pName = googlePatient.name;
+
+    axios.post('http://localhost:8081/post-patient', {
+      username: pUsername,
+      fullname: pName,
+      phone: "",
+      age: 0,
+      password: "",
+      gender: "",
+      email: pEmail
+    })
+      .then(result => {
+        
+        localStorage.setItem("temporal", "temporal");
+        setGooglePatient("");
+        navigate("/update-details");
+      })
+      .catch(error=>{
+        console.log(googlePatient);
+        if(error.response && error.response.status === 400){
+          alert("You have an account created Already, Proceed to Login ");
+          return;
+        }
+        else{
+          alert("An Error Occurred!!. Try Later.");
+        }
+      });
+      
+      
+  }
+}, [googlePatient, navigate]);
+
+//end google signin
+
+// normal signup 
+
   //handle Gender
   const handleGenderChange = (event) => {
     setGender(event.target.value);
@@ -130,6 +200,8 @@ const Register = () => {
         </div>
         
        </form> 
+       <button className='googleSignin' onClick={() => login()}> <i><GoogleIcon/></i> &nbsp; &nbsp;<p>Sign in with Google</p> </button>
+        
        <div className="prsignup">
         <p >Already have an account? </p> &nbsp; <Link to="/patient-login"><u> Log in</u> </Link></div>     
 
