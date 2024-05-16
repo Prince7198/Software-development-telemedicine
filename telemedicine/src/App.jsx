@@ -17,6 +17,10 @@ import DoctorAppointment from './Pages/DoctorAppointment';
 import RatingPage from './Pages/RatingPage';
 import GooglePatient from './Pages/GooglePatient';
 import DHistory from './Pages/DHistory';
+import SymptomsChecker from './Pages/SymptomsChecker';
+//chatbot
+import Chatbot from 'react-chatbot-kit'
+import 'react-chatbot-kit/build/main.css'
 
 import { GoogleLogin } from '@react-oauth/google';
 
@@ -42,6 +46,7 @@ export default function App() {
       <Route path='/doctor-appointment' element={< DoctorAppointment />}/>
       <Route path='/doctor-rating' element={< RatingPage />}/>
       <Route path='/dhistory' element={<DHistory />} />
+      <Route path='/symptoms-checker' element={<SymptomsChecker />} />
       <Route path='/update-details' element={<GooglePatient />} />
       
     </Routes>

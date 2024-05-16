@@ -3,6 +3,13 @@ import "./Patient.css";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
+//customize the alerts
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 
 const Patient = () => {
     const navigate = useNavigate();
@@ -17,6 +24,39 @@ const Patient = () => {
     const [doctors, setDoctors] = useState([]);
     const [gender, setGender] = useState('');
     const [doctorName, setDoctorName] =useState('');
+    const [open, setOpen] = useState(false);
+    const [msg1, setMsg1] = useState("");
+    const [err1, setErr1] = useState("");   
+    const [success, setSuccess] =useState("");
+    
+  
+   //custom Alert config
+   const customAlert = (message, severity) => {
+    return (
+        <Collapse in={open}>
+            <Alert
+                action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                            setOpen(false);
+                        }}
+                    >
+                        <CloseIcon fontSize="inherit" />
+                    </IconButton>
+                }
+                severity={severity}
+                sx={{ mb: 2 }}
+            >
+                {message}
+            </Alert>
+        </Collapse>
+    );
+  };
+  
+  
 
     useEffect(() => {
         const loggedPatient = localStorage.getItem("patient");
@@ -57,11 +97,16 @@ const Patient = () => {
         
         // imput validations
         if(doctor.length < 3){
-          alert("please select a Doctor");
+          setMsg1("please select a Doctor");
+          setErr1('error');
+          setOpen(true);
           return;
         }
         if(reason.length<10){
-          alert("The appointment reason must exceed 10 characters");
+            setMsg1("The appointment reason must exceed 10 characters");
+          setErr1('warning');
+          setOpen(true);
+    
           document.getElementById("reason").focus();
           return;
 
@@ -91,7 +136,10 @@ const Patient = () => {
         })
         .then(response=>{
          // console.log(response.data);
-          alert("Appointment has been booked succcessfully.");
+          setMsg1("Appointment has been booked succcessfully.");
+          setErr1("success");
+          setOpen(true);
+          
           //clear the inputs
           setDat("");
           setTim("");
@@ -105,6 +153,9 @@ const Patient = () => {
     return (
         <div className='pabody'>
             <h1 className='paheader'>Patient Appointment</h1>
+            {
+                customAlert(msg1,err1)
+            }
             <form className="paform" onSubmit={handleClick}>
                 <div className="pagridView">
                     <div>

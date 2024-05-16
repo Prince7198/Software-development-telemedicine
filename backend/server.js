@@ -16,7 +16,7 @@ const db = mysql.createConnection({
 
 // Endpoint to handle doctor registration
 app.post("/post-doctor", (req, res) => {
-  const { staffNumber, doctor_name, doctor_password } = req.body;
+  const { staffNumber, doctor_name, doctor_password, doctor_email} = req.body;
   //check whether the staff number exists;
   const checkStaff= "SELECT * FROM doctors where staffNumber = ?";
   db.query(checkStaff, [staffNumber], (checkErr, checkRes)=>{
@@ -28,8 +28,8 @@ app.post("/post-doctor", (req, res) => {
     } //else insert
  
   // Insert data into the database
-  const sql = "INSERT INTO doctors (staffNumber, doctor_name, doctor_password) VALUES (?, ?, ?)";
-  db.query(sql, [staffNumber, doctor_name, doctor_password], (err, results) => {
+  const sql = "INSERT INTO doctors (staffNumber, doctor_name, doctor_email, doctor_password) VALUES (?, ?, ?, ?)";
+  db.query(sql, [staffNumber, doctor_name, doctor_email, doctor_password], (err, results) => {
     if (err) {
       return res.status(500).json({ error: "Error inserting data into database" });
     }
@@ -247,6 +247,34 @@ app.post("/reject", (req, res) => {
 });
 
 
+//book appointment
+app.post("/treatment", (req,res)=>{
+  const {staffNumber, doctorName, patientUsername, patientName,patientAge, patientEmail,dat, symptoms, diagnosis,dose, usage, bill, medicaid} =req.body;
+  
+  aquery="INSERT INTO treatment(staffNumber, doctorName, patientUsername, patientName, patientAge, patientEmail,dat, symptoms, diagnosis, dose, ussage, bill, medicaid) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(aquery, [staffNumber, doctorName, patientUsername, patientName, patientAge,patientEmail, dat, symptoms, diagnosis, dose, usage, bill,medicaid], (err, data)=>{
+    if(err){
+      return res.status(500).json({error:"Error entering treatment record" + err});
+    }
+
+    // console.log(data);
+    return res.status(200).json(data);
+  })
+})
+
+//rating
+app.post("/rating", (req, res)=>{
+  const {id, review, rating}=req.body;
+  //do update
+  const queryU="UPDATE treatment SET rating=?, review=? where id=?";
+  db.query(queryU, [rating,review,id], (error,data)=>{
+    if(error){
+      return res.status(500).json({error:"Error Updating rating and Review"});
+
+    }
+    return res.status(200).json(data);//on success.
+  })
+})
 
 app.listen(8081, () => {
   console.log("Listening...");

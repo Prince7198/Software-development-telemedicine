@@ -14,7 +14,7 @@ const GPatient = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [cpassword, setCpassword] = useState("");
-    const [dob, setDob] = useState("");
+    const [dob, setDob] = useState("");     
     const [fullname, setFullname] = useState('');
     const [age, setAge] = useState('');
     const [gender, setGender] = useState('');

@@ -14,3 +14,50 @@
     border:1px solid rgb(49,121,181);
     border-radius: 5px;
 }
+.review{
+    text-align: center;
+    display: flex;
+}
+.review textarea{
+    font-size: 19px;
+    padding: 5px;
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 5px;
+}
+.review label{
+    color: rgb(49, 121, 181);
+    font-weight: 600;
+}
+.review input{
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 10px;
+    margin-left: 30px;
+}
+.headReview{
+    margin-bottom: 30px;
+    top:0;
+    color: rgb(49, 121, 181);
+    font-weight: 800;
+}
+.rButton{
+    background: rgb(49, 121, 181);
+    color: white;
+    font-size: 25px;
+    padding: 5px;
+    border: 1px solid rgb(49, 121, 181);
+    border-radius: 5px;
+    margin-top: 30px;
+    width: 100%;
+}
+.rButton:hover{
+    background: rgb(90, 164, 225);
+}
+.x{
+    color: rgb(49, 121, 181);
+    font-weight: 900;
+    float: right;
+    cursor: pointer;
+    margin-top: -70px;
+}

@@ -86,3 +86,37 @@
     font-weight: 400;
 
 }
+
+/* SuccessPopup.css */
+.success-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 100px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+
+.success-content {
+    text-align: center;
+    font-size: 26px;
+}
+
+.icon {
+    font-size: 68px;
+    color: green;
+    margin-bottom: 20px;
+}
+
+.success-content a {
+    color: blue;
+    text-decoration: underline;
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 20px;
+    display: block;
+}

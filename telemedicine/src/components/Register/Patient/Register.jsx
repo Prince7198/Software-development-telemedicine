@@ -11,6 +11,13 @@ import { useGoogleLogin } from '@react-oauth/google';
 import GoogleIcon from '@mui/icons-material/Google';
 
 import { jwtDecode } from "jwt-decode";
+//customize the alerts
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+ 
 
 const Register = () => {
   //useNavigate
@@ -26,7 +33,37 @@ const Register = () => {
   const [cpassword, setCpassword] = useState('');
   const [gender, setGender] = useState('');
   const [googlePatient, setGooglePatient] =useState({});
+  const [open, setOpen] = useState(false);
+  const [msg1, setMsg1] = useState("");
+  const [err1, setErr1] = useState("");   
+  const [success, setSuccess] =useState("");
   
+
+ //custom Alert config
+ const customAlert = (message, severity) => {
+  return (
+      <Collapse in={open}>
+          <Alert
+              action={
+                  <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                          setOpen(false);
+                      }}
+                  >
+                      <CloseIcon fontSize="inherit" />
+                  </IconButton>
+              }
+              severity={severity}
+              sx={{ mb: 2 }}
+          >
+              {message}
+          </Alert>
+      </Collapse>
+  );
+};
 
 
 
@@ -55,6 +92,7 @@ useEffect(() => {
     const pUsername = "temporal";
     const pEmail = googlePatient.email;
     const pName = googlePatient.name;
+
 
     axios.post('http://localhost:8081/post-patient', {
       username: pUsername,
@@ -99,7 +137,7 @@ useEffect(() => {
   const handleClick=(e) =>{
     //prevent default
     e.preventDefault(); 
-
+    
     // compute age 
     const current_date= new Date();
     const yob=new Date(dob)
@@ -107,42 +145,74 @@ useEffect(() => {
     setAge(a_ge);//the age
 
     if(!phone ||  phone.length <8 || phone.length >15){
-      alert("Invalid Phone Number");
+      setMsg1("Invalid Phone Number");
+      setErr1("error");
+      setOpen(true);
       return;
     }
-    if(!age || age>150 || age<0){
-      alert("Invalid Age");
+    if(!a_ge || a_ge>150 || a_ge<0){
+      
+      setMsg1("Invalid Age");
+      setErr1("error");
+      setOpen(true);
       return;
     }
     if(password != cpassword){
-      alert("Password Mismatch!");
+      setMsg1("Passwords did not match");
+      setErr1("error");
+      setOpen(true);
       return;
     }
+    setOpen(false);
     axios.post('http://localhost:8081/post-patient',{
       username:username,
       fullname: fullname,
       phone: phone,
-      age:age,
+      age:a_ge,
       password: password,
       gender:gender,
       email:email,
     })
     .then(result =>{
-      alert("Patient has been created Successfully");
-      navigate("/patient-login");
+      
+      setSuccess(true);
     }).catch(error=>{
       if(error.response && error.response.status === 400){
-        alert("Username is already taken. Please try another one. ")
+        
+      setMsg1("Username is already taken. Please try another one.");
+      setErr1("error");
+      setOpen(true);
         return;
       }
-      alert("Something went wrong. Please try again Later");
+          
+      setMsg1("Something went wrong. Please try again Later");
+      setErr1("error");
+      setOpen(true);
+
       return;
     });    
   }
   return (
     <div className='prbody'>
        <h1 className='prtitle'>Patient Register</h1>
+       {customAlert(msg1, err1)}
+
+       {
+                success &&(
+                    <div className="success-popup">
+                        <div className="success-content">
+                            <div className="icon">
+                                <CheckCircleIcon />
+                            </div>
+                            <p>Success</p><br />
+                            <a href="/patient-login">Proceed to Login</a>
+                           
+                        </div>
+                    </div>
+                )}
+
        <form className="prform" onSubmit={handleClick}>
+      
         <div className="gridView">
           <div>
           <label htmlFor="input-button">Username</label><br /> <br />
@@ -196,7 +266,7 @@ useEffect(() => {
         </div>
         <br />
         <div className="prbtnContainer">
-        <button className='prbtnSubmit' type="submit" >Register</button>
+        <button className='prbtnSubmit' type="submit" id='register' >Register</button>
         </div>
         
        </form> 

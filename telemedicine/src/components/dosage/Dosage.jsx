@@ -5,6 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
 
+//customize the alerts
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 const Dosage = () => {
     const navigate=useNavigate();
 
@@ -22,6 +29,37 @@ const Dosage = () => {
     const [medicaid, setMedicaid] = useState('');
     const [email, setEmail] = useState('');
     const [doctorName, setDoctorName] = useState('');
+    const [open, setOpen] = useState(false);
+    const [msg1, setMsg1] = useState("");
+    const [err1, setErr1] = useState("");   
+    const [success, setSuccess] =useState("");
+    
+     //custom Alert config
+     const customAlert = (message, severity) => {
+      return (
+          <Collapse in={open}>
+              <Alert
+                  action={
+                      <IconButton
+                          aria-label="close"
+                          color="inherit"
+                          size="small"
+                          onClick={() => {
+                              setOpen(false);
+                          }}
+                      >
+                          <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                  }
+                  severity={severity}
+                  sx={{ mb: 2 }}
+              >
+                  {message}
+              </Alert>
+          </Collapse>
+      );
+  };
+  
 
     useEffect(()=>{
 
@@ -59,7 +97,9 @@ const handleProcess=()=>{
     
    //make sure patient is selected
    if(patient.length <2){
-    alert("Please choose a Patient");
+    setMsg1("Please choose a Patient");
+    setErr1("info");
+    setOpen(true);
     return;
    }
    document.getElementById('dogridView').style.display="grid";
@@ -102,7 +142,9 @@ const handleClick =(e) =>{
     })
     .then(res => {
       
-      alert("Information Recorded Successfully");
+      setMsg1("Information Recorded Successfully");
+      setErr1("success");
+      setOpen(true);
       setPatient('');
       setAge('');
       setBill('');
@@ -113,7 +155,11 @@ const handleClick =(e) =>{
       setEmail('');
 
       document.getElementById('dogridView').style.display="none";
-    });
+    }).catch(err=>{
+      setMsg1("Error occurred processing your Request");
+      setErr1("error");
+      setOpen(true);
+    })
 
     
 
@@ -121,6 +167,7 @@ const handleClick =(e) =>{
   return (
     <div className='dosbody'>
         <h1 className="dostitle"> Dosage & Prescription</h1>
+        {customAlert(msg1, err1)}
 
         <div className="dosearch">
             <p>Select Patient: </p> &nbsp; &nbsp; 

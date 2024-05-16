@@ -71,3 +71,51 @@ button:focus-visible {
   padding: 0;
   
 }
+.react-chatbot-kit-chat-container {
+  width: 100%;
+  justify-content: center;
+  border-radius: 5px;
+  border: 1px solid rgb(49,121, 181);
+  justify-items: center;
+  text-align: center;
+}
+.react-chatbot-kit-chat-header {
+  background-color: rgb(49,121, 181);
+  color: white;
+  font-size: 20px;
+  padding: 30px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.react-chatbot-kit-chat-bot-message {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.react-chatbot-kit-chat-bot-message {
+  background-color: rgb(49,121, 181);
+  font-size: 18px;
+}
+
+.react-chatbot-kit-chat-bot-message-arrow {
+  border-right: 8px solid rgb(49,121, 181);
+}
+
+.react-chatbot-kit-chat-btn-send {
+  background-color: rgb(49,121, 181);
+}
+
+
+
+.react-chatbot-kit-chat-message-container {
+  background-color: rgb(206, 223, 226);
+  font-size: 20px;
+  
+}
+
+.react-chatbot-kit-chat-input {
+  background-color: white;
+  border: 1px solid rgb(49,121, 181);
+  font-size: 20px;
+}
