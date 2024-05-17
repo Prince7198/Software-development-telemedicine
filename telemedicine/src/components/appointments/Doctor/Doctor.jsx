@@ -48,10 +48,18 @@ const Doctor = () => {
             field: 'actions',
             headerName: 'Action',
             width: 250,
-            renderCell: (params) => (
+            renderCell: (params) => ( 
               <div className="button-container">
+                {
+                  params.row.status=='pending' ? (
+                    <div>
               <button className="action-button approve" onClick={() => handleApprove(params.row.id)}>Approve</button> &nbsp;&nbsp;
-              <button className="action-button reject" onClick={() => handleReject(params.row.id)}>Reject</button>
+              <button className="action-button reject" onClick={() => handleReject(params.row.id)}>Reject</button></div>
+                  ):(
+                    <div><button className='action-button'>N/A</button></div>
+                  )
+                }
+              
           </div>
             )
         }
@@ -103,7 +111,7 @@ const Doctor = () => {
                   },
                 }}
                 pageSizeOptions={[5]}
-                checkboxSelection
+            
                 disableRowSelectionOnClick
             />
             </div> <br />

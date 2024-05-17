@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 15, 2024 at 09:17 AM
+-- Generation Time: May 17, 2024 at 02:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,7 +48,10 @@ CREATE TABLE `appointments` (
 
 INSERT INTO `appointments` (`appointment_id`, `patientUsername`, `patientName`, `patientEmail`, `patientAge`, `patientGender`, `doctorName`, `staffNumber`, `appointmentDate`, `appointmentTime`, `appointmentReason`, `status`) VALUES
 (11, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-17', '02:04', ' I hahysdvsd sdiidfibdf ', 'approved'),
-(15, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-16', '12:58', 'I feel traumas affecting me lately', 'pending');
+(15, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-16', '12:58', 'I feel traumas affecting me lately', 'pending'),
+(16, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '23:12', 'I am really feeling akward inmy stomach', 'pending'),
+(17, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '11:28', 'I need your help in curing this headache', 'pending'),
+(18, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2019-02-26', '05:47', 'I would like a checkup', 'approved');
 
 -- --------------------------------------------------------
 
@@ -60,7 +63,6 @@ CREATE TABLE `doctors` (
   `staffNumber` int(11) NOT NULL,
   `doctor_name` varchar(50) NOT NULL,
   `doctor_email` varchar(50) DEFAULT NULL,
-  `doctor_speciality` varchar(50) DEFAULT NULL,
   `doctor_password` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -68,10 +70,10 @@ CREATE TABLE `doctors` (
 -- Dumping data for table `doctors`
 --
 
-INSERT INTO `doctors` (`staffNumber`, `doctor_name`, `doctor_email`, `doctor_speciality`, `doctor_password`) VALUES
-(123456, 'test doctor', '', '', 'test'),
-(135791, 'doctor doctor', '', '', 'TEST'),
-(654321, 'Dr Smith', NULL, NULL, 'test');
+INSERT INTO `doctors` (`staffNumber`, `doctor_name`, `doctor_email`, `doctor_password`) VALUES
+(123456, 'test doctor', 'test@gmail.com', 'test'),
+(123457, 'Dr. Michael', 'michael@gmail.com', 'michael123'),
+(654321, 'Dr Smith', 'smith@gmail.com', 'test');
 
 -- --------------------------------------------------------
 
@@ -94,9 +96,10 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`patientUsername`, `patient_name`, `patient_age`, `patient_phone`, `password`, `patient_email`, `patient_gender`) VALUES
+('mike1', 'Michael Allan', 14, '355234567878', 'patient1', 'mike@gmail.com', 'male'),
+('nicolas1', 'nicolas cage', 5, '355123456789', 'nicolas123', 'nocolas@gmail.com', 'male'),
 ('patient1', 'stan steve', 23, '01234567890', 'patient1', '2345sssd@gmail.com', 'male'),
-('patient12', 'Emily Watani', 2, '35512345654321', 'patient1', 'emily@gmail.com', 'male'),
-('patient123', 'Sylvester Alchem', 4, '12345432345', 'patient1', 'sylvesteralchem@gmail.com', 'male');
+('Rael1', 'Rael Faith', 2, '355242537475', 'rael1', 'rael@gmail.com', 'female');
 
 -- --------------------------------------------------------
 
@@ -118,19 +121,19 @@ CREATE TABLE `treatment` (
   `dose` varchar(20) NOT NULL,
   `ussage` varchar(10) NOT NULL,
   `bill` varchar(20) NOT NULL,
-  `medicaid` varchar(10) NOT NULL
+  `medicaid` varchar(10) NOT NULL,
+  `rating` varchar(10) DEFAULT NULL,
+  `review` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `treatment`
 --
 
-INSERT INTO `treatment` (`id`, `staffNumber`, `doctorName`, `patientUsername`, `patientName`, `patientAge`, `patientEmail`, `dat`, `symptoms`, `diagnosis`, `dose`, `ussage`, `bill`, `medicaid`) VALUES
-(1, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:18:47.883Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', ''),
-(2, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:23:18.015Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', 'no'),
-(3, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:24:40.192Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', 'yes'),
-(4, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:25:47.415Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', 'yes'),
-(5, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:30:27.676Z', 'sdusdbdf dfibdfbdbf', 'nidfdbifdbvbdbvidb', 'idvbfdfbidbfib', '', '23443', '');
+INSERT INTO `treatment` (`id`, `staffNumber`, `doctorName`, `patientUsername`, `patientName`, `patientAge`, `patientEmail`, `dat`, `symptoms`, `diagnosis`, `dose`, `ussage`, `bill`, `medicaid`, `rating`, `review`) VALUES
+(4, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:25:47.415Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', 'yes', '5', 'I was happy about how I feel right now after your Assistance.'),
+(6, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-16T16:00:45.981Z', 'Headache\nFever', 'Malaria', 'Glycomodelo', '2', '200', 'yes', NULL, NULL),
+(7, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-16T23:49:51.442Z', 'migrane\ndiarrhoea', 'Gastritis', 'Mycorpidea', '3', '23000', 'yes', '4', 'Than you for your assistance. I feel wonderful now');
 
 --
 -- Indexes for dumped tables
@@ -168,13 +171,13 @@ ALTER TABLE `treatment`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `treatment`
 --
 ALTER TABLE `treatment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

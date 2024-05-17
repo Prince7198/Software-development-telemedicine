@@ -276,6 +276,21 @@ app.post("/rating", (req, res)=>{
   })
 })
 
+//doctor's dashboard ratings
+app.get("/doctor-rating", (req, res)=>{
+  const staffNumber= req.query.staffNumber;
+  //get treatment details based on logged in doctor
+  const tquery="SELECT * FROM treatment WHERE staffNumber=?";
+  db.query(tquery, [staffNumber], (error,data)=>{
+    if(error){
+      return res.status(500).json({error: "Error retrieving the Doctor's record"});
+
+    }
+    //return data
+    return res.status(200).json(data);
+  })
+})
+
 app.listen(8081, () => {
   console.log("Listening...");
 });
