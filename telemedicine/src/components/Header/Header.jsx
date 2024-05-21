@@ -8,6 +8,7 @@ const Header = () => {
   const [clicked, setClicked] = useState(false);
   const [loggedPatient, setLoggedPatient] = useState("");
   const [loggedDoctor, setLoggedDoctor] = useState("");
+  const [blog, setBlog] = useState(false);
 
   useEffect(() => {
     const patient = localStorage.getItem("patient");
@@ -39,13 +40,13 @@ const Header = () => {
         <div>
           <ul id='navbar' className={clicked ? "#navbar active" : "#navbar"}>
             <li>
-              <a href={(loggedPatient ? "/patient-dashboard" : (loggedDoctor ? "/doctor-dashboard" : "/home"))} className='active'>Home</a>
+              <a href={(loggedPatient ? "/patient-dashboard" : (loggedDoctor ? "/doctor-dashboard" : "/home"))} >Home</a>
             </li>
             <li>
-              <a href="#"> Contact Us</a>
+              <a href="contact-us" className={blog?'active':""} onClick={()=>setBlog(true)}> Contact Us</a>
             </li>
             <li>
-              <a href="#"> Blog</a>
+              <a href="/about-us"> Blog</a>
             </li>
             {(loggedPatient || loggedDoctor) &&
               <li>

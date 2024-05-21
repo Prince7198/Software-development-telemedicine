@@ -139,6 +139,7 @@ const MedicalHist = () => {
             setRating("");
             setReview("");
             setRate(false); //collapse initial
+            location.reload(); //reload page
             setSuccess(true) //open the other one for success
             
         }).catch(error=>{
