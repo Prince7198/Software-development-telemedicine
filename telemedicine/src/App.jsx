@@ -19,6 +19,7 @@ import GooglePatient from './Pages/GooglePatient';
 import DHistory from './Pages/DHistory';
 import SymptomsChecker from './Pages/SymptomsChecker';
 import AboutUs from './Pages/AboutUs';
+import ContactUs from './Pages/ContactUs';
 
 //chatbot
 import Chatbot from 'react-chatbot-kit'
@@ -51,6 +52,7 @@ export default function App() {
       <Route path='/symptoms-checker' element={<SymptomsChecker />} />
       <Route path='/update-details' element={<GooglePatient />} />
       <Route path='/about-us' element={<AboutUs/>} />
+      <Route path='/contact-us' element={<ContactUs/>} />
       
     </Routes>
     </BrowserRouter>

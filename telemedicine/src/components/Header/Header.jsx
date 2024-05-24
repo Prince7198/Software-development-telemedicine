@@ -43,7 +43,7 @@ const Header = () => {
               <a href={(loggedPatient ? "/patient-dashboard" : (loggedDoctor ? "/doctor-dashboard" : "/home"))} >Home</a>
             </li>
             <li>
-              <a href="contact-us" className={blog?'active':""} onClick={()=>setBlog(true)}> Contact Us</a>
+              <a href="/contact-us" className={blog?'active':""} onClick={()=>setBlog(true)}> Contact Us</a>
             </li>
             <li>
               <a href="/about-us"> Blog</a>
