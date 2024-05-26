@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 17, 2024 at 02:30 AM
+-- Generation Time: May 26, 2024 at 10:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,8 @@ INSERT INTO `appointments` (`appointment_id`, `patientUsername`, `patientName`, 
 (15, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-16', '12:58', 'I feel traumas affecting me lately', 'pending'),
 (16, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '23:12', 'I am really feeling akward inmy stomach', 'pending'),
 (17, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '11:28', 'I need your help in curing this headache', 'pending'),
-(18, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2019-02-26', '05:47', 'I would like a checkup', 'approved');
+(18, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2019-02-26', '05:47', 'I would like a checkup', 'approved'),
+(19, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2020-02-05', '04:18', 'I am not well and I want your assistance', 'approved');
 
 -- --------------------------------------------------------
 
@@ -104,6 +105,21 @@ INSERT INTO `patients` (`patientUsername`, `patient_name`, `patient_age`, `patie
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedules`
+--
+
+CREATE TABLE `schedules` (
+  `id` int(11) NOT NULL,
+  `staffNumber` int(11) NOT NULL,
+  `scheduleDate` date NOT NULL,
+  `startTime` time NOT NULL,
+  `endTime` time NOT NULL,
+  `availability` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `treatment`
 --
 
@@ -133,7 +149,8 @@ CREATE TABLE `treatment` (
 INSERT INTO `treatment` (`id`, `staffNumber`, `doctorName`, `patientUsername`, `patientName`, `patientAge`, `patientEmail`, `dat`, `symptoms`, `diagnosis`, `dose`, `ussage`, `bill`, `medicaid`, `rating`, `review`) VALUES
 (4, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-12T12:25:47.415Z', 'you had severe headache', 'MAlaria \nand Fatigue', 'Fascida', '2', '234', 'yes', '5', 'I was happy about how I feel right now after your Assistance.'),
 (6, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-16T16:00:45.981Z', 'Headache\nFever', 'Malaria', 'Glycomodelo', '2', '200', 'yes', NULL, NULL),
-(7, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-16T23:49:51.442Z', 'migrane\ndiarrhoea', 'Gastritis', 'Mycorpidea', '3', '23000', 'yes', '4', 'Than you for your assistance. I feel wonderful now');
+(7, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-16T23:49:51.442Z', 'migrane\ndiarrhoea', 'Gastritis', 'Mycorpidea', '3', '23000', 'yes', '4', 'Than you for your assistance. I feel wonderful now'),
+(8, '123456', 'test doctor', 'patient1', 'stan steve', '23', '2345sssd@gmail.com', '2024-05-17T01:19:36.900Z', 'fever \nheadache\ncough', 'Malaria', 'Malaria Tablets', '3', '25', 'yes', '5', 'Thank you for treating me Malaria.');
 
 --
 -- Indexes for dumped tables
@@ -158,6 +175,12 @@ ALTER TABLE `patients`
   ADD PRIMARY KEY (`patientUsername`);
 
 --
+-- Indexes for table `schedules`
+--
+ALTER TABLE `schedules`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `treatment`
 --
 ALTER TABLE `treatment`
@@ -171,13 +194,19 @@ ALTER TABLE `treatment`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `schedules`
+--
+ALTER TABLE `schedules`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `treatment`
 --
 ALTER TABLE `treatment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

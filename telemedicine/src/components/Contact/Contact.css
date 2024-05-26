@@ -8,7 +8,7 @@
 }
 .ccontact{
     position: relative;
-    min-height: 100vh;
+    
     padding: 0px 100px;
     display: flex;   
     justify-content: center;

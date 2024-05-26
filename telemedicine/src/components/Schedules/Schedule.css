@@ -1,0 +1,109 @@
+.sbody{
+    height: 750px;
+    background: url(/src/assets/schedule.webp) no-repeat;
+    background-size: cover;
+
+}
+.stitle{
+    font-weight: 600;
+    text-align: center;
+    padding: 10px;
+    color: rgb(49,121, 181);
+}
+.sform{
+    padding: 50px 100px;
+
+}
+.sdate{
+    padding: 30px 100px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+
+}
+.sdate .sldate{   
+    font-size: 25px;
+    font-weight: 600;
+    color: rgb(49,121, 181);
+}
+.sdate .sidate{
+    margin-left: 10px;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid rgb(49,121, 181);
+}
+.sform{
+    
+    width: 100%;
+}
+.inputBox{
+    align-items: center;
+    display: flex;
+    font-size: 20px;
+    flex-wrap: wrap;
+}
+.inputBox label{
+    font-size: 25px;
+    font-weight: 600;
+    color: rgb(49,121, 181);
+}
+
+.inputBox input[type="time"]{
+    border: 1px solid rgb(49,121, 181);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    align-items: center;
+}
+.sform .submit{
+    width: 50%;
+    margin-top: 70px;
+    align-items: center;
+    justify-content: center;
+    
+}
+.sform .submit input[type="submit"]{
+    
+    font-size: 20px;
+    color: white;
+    padding: 10px;
+    background: rgb(49,121, 181);
+    border: 1px solid rgb(49,121,181);
+    border-radius: 5px;
+    width: 100%;
+}
+.closeBtn{
+    margin: 20px;
+    text-align: right;
+    color: rgb(49,121, 181);
+    cursor: pointer;
+}
+.addNew{
+    margin-top: 40px;
+    padding: 10px;
+    font-size: 20px;
+    color: #fff;
+    background: rgb(49,121, 181);
+    border: 1px solid rgb(49,121, 181);
+    border-radius: 5px;
+    justify-content: center;
+    float: right;
+    margin-right: 40%;
+}
+.delBtn{
+    background: rgb(230, 95, 95);
+    justify-content:center;
+    cursor:pointer;
+    background:red;
+    padding:5px;
+    color:white;
+    font-weight:600;
+    width:100px;
+    border-radius:5px;
+    border: 1px solid red;
+
+}
+.delBtn :hover{
+    background: rgb(98, 42, 42);
+}
