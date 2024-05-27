@@ -3,6 +3,10 @@ import "./Patient.css";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import PhoneInput from 'react-phone-input-2';
+
+
+import { DataGrid } from '@mui/x-data-grid';
+
 //customize the alerts
 import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
@@ -19,7 +23,7 @@ const Patient = () => {
     const [age, setAge] = useState('');
     const [email, setEmail] = useState('');
     const [tim, setTim] = useState('');
-    const [reason, setReason] = useState('');
+    const [schedules, setSchedules] = useState([]);
     const [dat, setDat] = useState('');
     const [doctors, setDoctors] = useState([]);
     const [gender, setGender] = useState('');
@@ -102,52 +106,57 @@ const Patient = () => {
           setOpen(true);
           return;
         }
-        if(reason.length<10){
-            setMsg1("The appointment reason must exceed 10 characters");
-          setErr1('warning');
-          setOpen(true);
-    
-          document.getElementById("reason").focus();
-          return;
-
-        }
+        
          // get doctor name 
         //let get the data from the database
-        axios.get(`http://localhost:8081/get-doctor?staffNumber=${doctor}`, {
+        axios.get(`http://localhost:8081/get-schedules?staffNumber=${doctor}`, {
         })
         .then(response => {
-            const dctor=response.data;
-            const name_=dctor.doctor_name;
-    
+            const dschedules=response.data;
+            console.log(dschedules);
+            const scheduleswithIDs = dschedules.map((schedules)=>({
+                ...schedules,
+                id:schedules.id,
+            }));
+            setSchedules(scheduleswithIDs);
+
+
        
-        //insert the record
-        axios.post(`http://localhost:8081/patient/book-appointment?patientUsername=${username}`, {
-          patientUsername:username,
-          patientName: fullname,
-          patientEmail: email,
-          patientAge: age,
-          patientGender: gender,
-          doctorName: name_,
-          staffNumber:doctor,
-          appointmentDate: dat,
-          appointmentTime:tim,
-          appointmentReason: reason,
-
-        })
-        .then(response=>{
-         // console.log(response.data);
-          setMsg1("Appointment has been booked succcessfully.");
-          setErr1("success");
-          setOpen(true);
-          
-          //clear the inputs
-          setDat("");
-          setTim("");
-          setReason("");
-          setDoctor("");
-
-        });
-    });
+    })
+    .catch(error=>{
+        console.log("Error: "+ error);
+    })
+    }
+    const columns =[
+        {field: "scheduleDate", headerName:"Date", width:250},
+        {field:"startTime", headerName:"Start Time", width:200},
+        {field:"endTime", headerName:"End Time", width:200},
+        {field:"status", headerName:"Status", width:200,
+            renderCell:(params) =>(
+                <div className="renderStatus">
+                    {params.row.availability==1?
+                    (
+                        <p color='green' className="available">Available</p>
+                    ):(
+                        <p className="booked">Booked</p>
+                    )}
+                </div>
+            )
+        },
+        {field:"action", headerName:"Action", width:300,
+            renderCell:(params)=>(
+                <div className="actions">
+                    {params.row.availability==1 ?(
+                        <button onClick={()=>handleBook(params.row.id)}  className='bNow'>Book Now</button>
+                    ):(
+                        <button style={{disabled:"true"}} className='na'>N/A</button>
+                    )}
+                </div>
+            )
+        },
+    ];
+    const handleBook =(id)=>{
+        alert(id);
     }
 
     return (
@@ -157,50 +166,36 @@ const Patient = () => {
                 customAlert(msg1,err1)
             }
             <form className="paform" onSubmit={handleClick}>
-                <div className="pagridView">
-                    <div>
-                        <label htmlFor="input-button">Full Names</label><br /> <br />
-                        <input type="text" placeholder='Enter your Full Names' value={fullname} onChange={(e) => { setFullname(e.target.value) }} style={{ cursor: "pointer" }} readOnly /> <br /><br />
-                    </div>
-                    <div>
-                        <label htmlFor="input-button">Email</label><br /> <br />
-                        <input type="text" placeholder='Enter your Email' value={email} style={{ cursor: "pointer" }} readOnly /> <br /><br />
-                    </div>
-                    <div>
-                        <label htmlFor="input-button">Age</label><br /> <br />
-                        <input type="number" placeholder='Enter your Age' value={age} style={{ cursor: "pointer" }} readOnly /> <br /><br />
-                    </div>
-                    <div>
-                        <label htmlFor="input-button">Doctor</label><br /> <br />
-                        
+                <div className="schedule">
+                    <div className="selDoctor">
+                    <label htmlFor="input-button">Select a Doctor: </label> &nbsp;                        
                         <select type='select' placeholder="Select a Doctor" value={doctor} onChange={(e)=> setDoctor(e.target.value)}>
-                           <option value=""></option>
+                            <option value=""></option>
                             {doctors.map(doctor => (
                                 <option key={doctor.staffNumber} value={doctor.staffNumber}>{doctor.doctor_name}</option>
                             ))}
-                        </select> <br /><br />
+                        </select> &nbsp; &nbsp;
                     </div>
-                    <div>
-                        <label htmlFor="input-button">Appointment Date</label><br /> <br />
-                        <input type="date" value={dat} onChange={(e) => setDat(e.target.value)} style={{ cursor: "pointer", width: "260px" }} required /> <br /><br />
-                    </div>
-                    <div>
-                        <label htmlFor="input-button">Appointment Time</label><br /> <br />
-                        <input type="time" style={{ width: "260px" }} value={tim} onChange={(e) => { setTim(e.target.value) }} required /> <br /><br />
-                    </div>
-                    <div>
-                        <label htmlFor="input-button">Appointment Reason </label><br /> <br />
-                        <textarea id='reason' cols="25" rows="7" placeholder='Type here ...' value={reason} onChange={(e) => setReason(e.target.value)} required /> <br /><br />
-                    </div>
-                    <div className="pabtnContainer">
-                        <button className='pabtnSubmit' type="submit" >Book Now</button>
-                    </div>
+                    <input type='submit' className='view' value="View" />
                 </div>
-                <div className="pappointments">
-              <Link to="/patient-appointments" className='link'>My appointments&#8594; </Link>
-            </div>
-                <br />
+                        
             </form>
+            <div className="ddatagrid" style={{width:"60%", float:"left"}}>
+           <DataGrid className='dgrid'
+                rows={schedules}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: {
+                      pageSize: 5,
+                    },
+                  },
+                }}
+                pageSizeOptions={[5]}
+            
+                disableRowSelectionOnClick
+            />
+            </div> <br />
            
         </div>
     )

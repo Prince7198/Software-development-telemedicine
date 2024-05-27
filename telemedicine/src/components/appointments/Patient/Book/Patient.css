@@ -103,3 +103,70 @@
 .pappointments .link{
     color: rgb(49, 121, 181);
 }
+.selDoctor{
+    display: flex;
+    align-items: center;
+}
+.selDoctor label{
+    font-size: 25px;
+}
+.schedule{
+    display: flex;
+}
+.view{
+    background: rgb(49, 121, 181);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(39, 167, 222);
+    font-weight: 600;
+    width: 100px;
+    cursor: pointer;
+    font-size: 20px;
+
+}
+.view :hover{
+    background: rgb(100, 147, 168);
+}
+.renderStatus{
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+}
+.renderStatus .available{
+    justify-content: center;
+    color:green;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.renderStatus .booked{
+    justify-content: center;
+    color:red;
+    padding: 5px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.bNow{
+    background: rgb(49, 121, 181);
+    color: white;
+    width: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid green;
+    border-radius: 5px;
+
+    padding: 5px;
+}
+.na{
+    color: white;
+    font-weight: 600;
+    width: 100px;
+    background: gray;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 5px;
+
+}
