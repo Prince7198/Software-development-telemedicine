@@ -40,7 +40,7 @@ const Header = () => {
         <div>
           <ul id='navbar' className={clicked ? "#navbar active" : "#navbar"}>
             <li>
-              <a href={(loggedPatient ? "/patient-dashboard" : (loggedDoctor ? "/doctor-dashboard" : "/home"))} >Home</a>
+              <a href="/home" >Home</a>
             </li>
             <li>
               <a href="/contact-us" className={blog?'active':""} onClick={()=>setBlog(true)}> Contact Us</a>

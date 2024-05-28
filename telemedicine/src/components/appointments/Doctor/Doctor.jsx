@@ -5,10 +5,22 @@ import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 
+//customize the alerts
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 const Doctor = () => {
   const [staffNumber, setStaffNumber] = useState("");
     const [appointments, setAppointments] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [msg1, setMsg1] = useState("");
+    const [meeting, setMeeting] = useState("")
+    const [iid, setIid] =useState("");
+    const [err1, setErr1] = useState("");   
+    const [success, setSuccess] =useState("");
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -38,11 +50,11 @@ const Doctor = () => {
 
     const columns = [
         
-        { field: 'doctorName', headerName: 'Doctor Name', width: 200 },
+        { field: 'patientName', headerName: 'Patient Name', width: 200 },
         { field: 'patientAge', headerName: 'Age', width: 100 },
-        { field: 'appointmentDate', headerName: 'Date', width: 150 },
-        { field: 'appointmentTime', headerName: 'Time', width: 150 },
-        { field: 'appointmentReason', headerName: 'Reason', width: 200 },
+        { field: 'appointmentDate', headerName: 'Date', width: 450 },
+        { field: 'startTime', headerName: 'Start Time', width: 150 },
+        { field: 'endTime', headerName: 'End Time', width: 200 },
         {field: 'status', headerName: 'Status', width:150, },
         {
             field: 'actions',
@@ -65,20 +77,38 @@ const Doctor = () => {
         }
     ];
 
+
+ //custom Alert config
+ const customAlert = (message, severity) => {
+  return (
+      <Collapse in={open}>
+          <Alert
+              action={
+                  <IconButton
+                      aria-label="close"
+                      color="inherit"
+                      size="small"
+                      onClick={() => {
+                          setOpen(false);
+                      }}
+                  >
+                      <CloseIcon fontSize="inherit" />
+                  </IconButton>
+              }
+              severity={severity}
+              sx={{ mb: 2 }}
+          >
+              {message}
+          </Alert>
+      </Collapse>
+  );
+};
+
+
     const handleApprove = (appointmentId) => {
-      // Modify the status 
-
-      axios.post(`http://localhost:8081/approve?appointment_id=${appointmentId}`,{
-        appointment_id:appointmentId,
-        
-      })
-      .then(response=>{
-        location.reload();
-        // Handle approve action for the appointment
-        console.log("Approved appointment with ID:", appointmentId);
-
-      })
-        
+      setIid(appointmentId);
+      setSuccess(true);
+    
     };
 
     const handleReject = (appointmentId) => {
@@ -93,12 +123,62 @@ const Doctor = () => {
 
       })
     };
+    const handleCloseBtn =() =>{
+      setSuccess(false);
+      location.reload();
+  }
+  const handleSubmit =(e) =>{
+    e.preventDefault()
+
+      // Modify the status 
+      if(meeting.length < 1){
+        setMsg1("Please enter a valid meeting link");
+        setErr1("warning");
+        setOpen(true);
+        return;
+      }
+
+      axios.post(`http://localhost:8081/approve?appointment_id=${iid}`,{
+        appointment_id:iid,
+        meeting:meeting,
+        
+      })
+      .then(response=>{
+        location.reload();
+        // Handle approve action for the appointment
+        console.log("Approved appointment with ID:", appointmentId);
+
+      })
+        
+
+  }
 
 
   return (
     <div className='dabody'>
       <h1 className='datitle'>Doctor Appointments</h1>
-      
+         
+      {success  && <div className='success-popup' style={{padding:0}}>
+            <div className="success-content" style={{alignItems:"center", textAlign:"center"}}>
+                <div className="closeBtn" onClick={handleCloseBtn}>X</div>
+                <h2 style={{color:"rgb(49,121,181)"}}>Google Meet</h2>
+                {/* error zone  */}
+                {customAlert(msg1, err1)}
+            
+            <form action="" className='sform'>
+                           
+                    <div className='inputBox'>
+                        <label htmlFor="">Meeting Link: </label>&nbsp;
+                        <input type="text" style={{padding:"5px", fontSize:"16px",borderRadius:"5px", border:"1px solid rgb(49,121,181)"}} value={meeting} onChange={(e)=>setMeeting(e.target.value)} placeholder='Please enter the google meet' required />
+                    </div>
+                                    
+                <div  className='submit'>
+                <input type="submit" value="Approve" onClick={handleSubmit} />
+                </div>
+            </form>   
+            </div>     
+        </div>
+}
       <div className="ddatagrid">
            <DataGrid className='dgrid'
                 rows={appointments}
@@ -114,7 +194,12 @@ const Doctor = () => {
             
                 disableRowSelectionOnClick
             />
-            </div> <br />
+            </div> 
+            <div className="pappointments" >
+              <Link to="/doc-schedules" className='link'>Manage Schedules&#8594; </Link>
+            </div>
+                <br />
+       
 
     </div>
   )

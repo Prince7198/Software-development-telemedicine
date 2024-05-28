@@ -125,6 +125,7 @@ const Patient = () => {
     })
     .catch(error=>{
         console.log("Error: "+ error);
+        setSchedules([]);
     })
     }
     const columns =[
@@ -156,11 +157,61 @@ const Patient = () => {
         },
     ];
     const handleBook =(id)=>{
-        alert(id);
+        //get all data from the schedule
+        axios.get(`http://localhost:8081/get-schedle?id=${id}`)
+        .then(response=>{
+            // console.log(response.data);
+            const schedule=response.data[0];
+            const staffNumber= schedule.staffNumber;
+            const startTime= schedule.startTime;
+            const endTime = schedule.endTime;
+            const scheduleDate=schedule.scheduleDate;
+            
+    
+          
+
+            axios.get(`http://localhost:8081/get-doctor?staffNumber=${staffNumber}`)
+            .then(response => {
+                const _doctor=response.data;
+                const staffName=_doctor.doctor_name;  
+               
+                
+                //insert the record
+        axios.post(`http://localhost:8081/patient/book-appointment`, {
+            patientUsername:username,
+            patientName: fullname,
+            patientEmail: email,
+            patientAge: age,
+            patientGender: gender,
+            doctorName: staffName,
+            staffNumber:staffNumber,
+            appointmentDate: scheduleDate,
+            startTime:startTime,
+            endTime: endTime,
+  
+          })
+          .then(response=>{
+          //successful application
+          axios.post(`http://localhost:8081/update-schedule?id=${id}`);
+           // console.log(response.data);           
+            setMsg1("Appointment has been booked succcessfully.");
+            setErr1("success");
+            setOpen(true);
+            
+            })
+            .catch(error => {
+                console.log("Error: " + error);
+                location.reload();
+                setMsg1("An Error has occurred! Please try again later.");
+                setErr1("error");
+                setOpen(true);
+            });
+            });
+ });
     }
 
     return (
-        <div className='pabody'>
+        <div className='pabody' > 
             <h1 className='paheader'>Patient Appointment</h1>
             {
                 customAlert(msg1,err1)
@@ -181,7 +232,7 @@ const Patient = () => {
                         
             </form>
             <div className="ddatagrid" style={{width:"60%", float:"left"}}>
-           <DataGrid className='dgrid'
+           <DataGrid className='dgrid' style={{minHeight:"450px"}}
                 rows={schedules}
                 columns={columns}
                 initialState={{
@@ -196,6 +247,10 @@ const Patient = () => {
                 disableRowSelectionOnClick
             />
             </div> <br />
+            <div className="pappointments" style={{marginTop:"20px", position:"relative"}}>
+              <Link to="/patient-appointments" className='link'>My appointments&#8594; </Link>
+            </div>
+                <br />
            
         </div>
     )

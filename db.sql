@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 26, 2024 at 10:32 AM
+-- Generation Time: May 28, 2024 at 05:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -36,23 +36,23 @@ CREATE TABLE `appointments` (
   `patientGender` varchar(10) NOT NULL,
   `doctorName` varchar(20) NOT NULL,
   `staffNumber` varchar(20) NOT NULL,
-  `appointmentDate` varchar(20) NOT NULL,
-  `appointmentTime` varchar(20) NOT NULL,
-  `appointmentReason` varchar(500) NOT NULL,
-  `status` varchar(10) NOT NULL
+  `appointmentDate` varchar(50) NOT NULL,
+  `startTime` varchar(50) NOT NULL,
+  `endTime` varchar(50) NOT NULL,
+  `status` varchar(10) NOT NULL,
+  `meeting` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `appointments`
 --
 
-INSERT INTO `appointments` (`appointment_id`, `patientUsername`, `patientName`, `patientEmail`, `patientAge`, `patientGender`, `doctorName`, `staffNumber`, `appointmentDate`, `appointmentTime`, `appointmentReason`, `status`) VALUES
-(11, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-17', '02:04', ' I hahysdvsd sdiidfibdf ', 'approved'),
-(15, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-16', '12:58', 'I feel traumas affecting me lately', 'pending'),
-(16, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '23:12', 'I am really feeling akward inmy stomach', 'pending'),
-(17, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr. Michael', '123457', '2024-05-10', '11:28', 'I need your help in curing this headache', 'pending'),
-(18, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2019-02-26', '05:47', 'I would like a checkup', 'approved'),
-(19, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2020-02-05', '04:18', 'I am not well and I want your assistance', 'approved');
+INSERT INTO `appointments` (`appointment_id`, `patientUsername`, `patientName`, `patientEmail`, `patientAge`, `patientGender`, `doctorName`, `staffNumber`, `appointmentDate`, `startTime`, `endTime`, `status`, `meeting`) VALUES
+(21, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-29T21:00:00.000Z', '09:51:00', '12:51:00', 'pending', ''),
+(22, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-29T21:00:00.000Z', '09:51:00', '12:51:00', 'pending', ''),
+(23, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-29T21:00:00.000Z', '10:14:00', '12:15:00', 'rejected', ''),
+(24, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-29T21:00:00.000Z', '15:48:00', '17:47:00', 'approved', ''),
+(25, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-30T21:00:00.000Z', '17:31:00', '18:31:00', 'approved', 'https://meet.google.com/gxn-kgpz-drp');
 
 -- --------------------------------------------------------
 
@@ -116,6 +116,16 @@ CREATE TABLE `schedules` (
   `endTime` time NOT NULL,
   `availability` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `schedules`
+--
+
+INSERT INTO `schedules` (`id`, `staffNumber`, `scheduleDate`, `startTime`, `endTime`, `availability`) VALUES
+(4, 654321, '2024-05-30', '09:51:00', '12:51:00', 0),
+(5, 123456, '2024-05-30', '10:14:00', '12:15:00', 0),
+(6, 123456, '2024-05-30', '15:48:00', '17:47:00', 0),
+(7, 123456, '2024-05-31', '17:31:00', '18:31:00', 0);
 
 -- --------------------------------------------------------
 
@@ -194,13 +204,13 @@ ALTER TABLE `treatment`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `treatment`

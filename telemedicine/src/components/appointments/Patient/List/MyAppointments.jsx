@@ -39,9 +39,9 @@ const MyAppointments = () => {
         { field: 'id', headerName: 'S/No', width: 70 },
         { field: 'doctorName', headerName: 'Doctor Name', width: 200 },
         { field: 'patientAge', headerName: 'Age', width: 100 },
-        { field: 'appointmentDate', headerName: 'Date', width: 150 },
-        { field: 'appointmentTime', headerName: 'Time', width: 150 },
-        { field: 'appointmentReason', headerName: 'Reason', width: 200 },
+        { field: 'appointmentDate', headerName: 'Date', width: 450 },
+        { field: 'startTime', headerName: 'Start Time', width: 200 },
+        { field: 'endTime', headerName: 'End Time', width: 200 },
         {field: 'status', headerName: 'Status', width:150, }
         // {
         //     field: 'actions',
@@ -81,11 +81,11 @@ const MyAppointments = () => {
                     },
                   }}
                   pageSizeOptions={[5]}
-                  checkboxSelection
+         
                   disableRowSelectionOnClick
             />
             </div> <br />
-            <div className="newAppointment">
+            <div className="newAppointment" style={{alignItems:"center"}}>
                 <p>Book a New Appointment?</p> &nbsp; <Link className='toBook' to="/book-appointment">Click Here</Link>
             </div>
         </div>

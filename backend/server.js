@@ -148,10 +148,10 @@ app.get("/all-patients", (req, res) =>{
 
 //book appointment
 app.post("/patient/book-appointment", (req,res)=>{
-  const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName,staffNumber, appointmentDate, appointmentTime, appointmentReason} =req.body;
+  const {patientUsername, patientName,patientEmail, patientAge, patientGender, doctorName,staffNumber, appointmentDate, startTime, endTime} =req.body;
   const status = "pending";
-  aquery="INSERT INTO appointments(patientUsername,patientName,patientEmail, PatientAge, patientGender,doctorName,staffNumber, appointmentDate,appointmentTime, appointmentReason,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-  db.query(aquery,[patientUsername,patientName,patientEmail,patientAge,patientGender,doctorName,staffNumber, appointmentDate,appointmentTime,appointmentReason,status], (err, data)=>{
+  aquery="INSERT INTO appointments(patientUsername,patientName,patientEmail, PatientAge, patientGender,doctorName,staffNumber, appointmentDate,startTime, endTime,status) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+  db.query(aquery,[patientUsername,patientName,patientEmail,patientAge,patientGender,doctorName,staffNumber, appointmentDate,startTime,endTime,status], (err, data)=>{
     if(err){
       return res.status(500).json({error:"Error occured creating appointment" + err});
     }
@@ -215,11 +215,11 @@ app.get("/sick-patients", (req, res)=>{
 
 //approve
 app.post("/approve", (req, res) => {
-  const { appointment_id } = req.body;
+  const { appointment_id, meeting } = req.body;
   const status = "approved";
-  const aquery = "UPDATE appointments SET status = ? WHERE appointment_id = ?";
+  const aquery = "UPDATE appointments SET status = ?, meeting= ? WHERE appointment_id = ?";
   
-  db.query(aquery, [status, appointment_id], (err, data) => {
+  db.query(aquery, [status, meeting, appointment_id], (err, data) => {
     if (err) {
       return res.status(500).json({ error: "Error Approving: " + err });
     }
@@ -290,6 +290,67 @@ app.get("/doctor-rating", (req, res)=>{
     return res.status(200).json(data);
   })
 })
+//post-schedules
+app.post("/post-schedule", (req, res)=>{
+  const {staffNumber, scheduleDate, startTime, endTime, availability} =req.body;
+
+  querry= "INSERT INTO schedules(staffNumber, scheduleDate, startTime, endTime, availability) VALUES (?,?,?,?,?)";
+  db.query(querry, [staffNumber, scheduleDate, startTime, endTime, availability], (err, data)=>{
+    if(err){
+      console.log(err);
+      return res.status(500).json({Error: "Error inserting a Schedule"});
+    }
+    return res.status(200).json(data);
+  })
+});
+
+//get schedules
+app.get("/get-schedules", (req,res)=>{
+  const staffNumber = req.query.staffNumber;
+  queryS="SELECT * FROM schedules WHERE staffNumber=?";
+  db.query(queryS, [staffNumber], (err, data)=>{
+    if(data.length<1){
+      return res.status(404).json("No record found!!");
+    }
+    return res.status(200).json(data);
+  })
+});
+//delete the schedule
+app.delete("/del-schedule", (req, res) =>{
+  const id = req.query.id;
+  const delquery ="DELETE FROM schedules WHERE id=?";
+  db.query(delquery, [id], (error, data)=>{
+    if(error){
+      return res.status(500).json({Error:"An error has occurred!"});
+    }
+    return res.status(200).json({Message:"Schedule has been successfully deleted"});
+  })
+});
+
+//get schedule witb ID
+app.get("/get-schedle", (req,res)=>{
+  const id = req.query.id;
+  queryS="SELECT * FROM schedules WHERE id=?";
+  db.query(queryS, [id], (err, data)=>{
+    if(data.length<1){
+      return res.status(404).json("No record found!!");
+    }
+    return res.status(200).json(data);
+  })
+});
+// booked? make it unavailable
+//get schedule witb ID
+app.post("/update-schedule", (req,res)=>{
+  const id = req.query.id;
+  const availability =false;
+  queryS="UPDATE schedules SET availability=? WHERE id=?";
+  db.query(queryS, [availability,id], (err, data)=>{
+    if(data.length<1){
+      return res.status(404).json("No record found!!");
+    }
+    return res.status(200).json(data);
+  })
+});
 
 app.listen(8081, () => {
   console.log("Listening...");
