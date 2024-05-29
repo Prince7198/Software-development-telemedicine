@@ -42,30 +42,12 @@ const MyAppointments = () => {
         { field: 'appointmentDate', headerName: 'Date', width: 450 },
         { field: 'startTime', headerName: 'Start Time', width: 200 },
         { field: 'endTime', headerName: 'End Time', width: 200 },
-        {field: 'status', headerName: 'Status', width:150, }
-        // {
-        //     field: 'actions',
-        //     headerName: 'Action',
-        //     width: 250,
-        //     renderCell: (params) => (
-        //         <div>
-        //             <button onClick={() => handleApprove(params.row.id)}>Approve</button> &nbsp; &nbsp;
-        //             <button onClick={() => handleReject(params.row.id)}>Reject</button>
-        //         </div>
-        //     )
-        // }
+        {field: 'status', headerName: 'Status', width:150, },
+        {field: 'meeting', headerName: 'Meeting Link', width:350, },
+
     ];
 
-    // const handleApprove = (appointmentId) => {
-    //     // Handle approve action for the appointment
-    //     console.log("Approved appointment with ID:", appointmentId);
-    // };
-
-    // const handleReject = (appointmentId) => {
-    //     // Handle reject action for the appointment
-    //     console.log("Rejected appointment with ID:", appointmentId);
-    // };
-
+ 
     return (
         <div className='myabody'>
             <h1 className='myaheader'>My Appointments</h1>

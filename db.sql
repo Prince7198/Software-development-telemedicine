@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 28, 2024 at 05:02 PM
+-- Generation Time: May 29, 2024 at 09:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,7 +51,6 @@ INSERT INTO `appointments` (`appointment_id`, `patientUsername`, `patientName`, 
 (21, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-29T21:00:00.000Z', '09:51:00', '12:51:00', 'pending', ''),
 (22, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'Dr Smith', '654321', '2024-05-29T21:00:00.000Z', '09:51:00', '12:51:00', 'pending', ''),
 (23, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-29T21:00:00.000Z', '10:14:00', '12:15:00', 'rejected', ''),
-(24, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-29T21:00:00.000Z', '15:48:00', '17:47:00', 'approved', ''),
 (25, 'patient1', 'stan steve', '2345sssd@gmail.com', '23', 'male', 'test doctor', '123456', '2024-05-30T21:00:00.000Z', '17:31:00', '18:31:00', 'approved', 'https://meet.google.com/gxn-kgpz-drp');
 
 -- --------------------------------------------------------
